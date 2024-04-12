@@ -26,11 +26,11 @@ Given additional time, several enhancements could be made to the Vue Calculator 
 
 ## Getting Started
 To run the Vue Calculator App locally, follow these steps:
-- Clone the repository: git clone https://github.com/chrixempire/vue-calculator.git
+- Clone the repository: git clone https://github.com/chrixempire/calculator-v2.git
 - Navigate to the project directory: cd vue-calculator
 - Install dependencies: npm install
 - Start the development server: npm run serve
-- Open your web browser and navigate to http://localhost:8080
+- Open your web browser and navigate to http://localhost:3000
 
 
 
