@@ -36,7 +36,6 @@ export default {
   data() {
     return {
       previous: null,
-      //   current: "",
       calculatorValue: "",
       operator: null,
       operatorClicked: false,
@@ -59,13 +58,15 @@ export default {
     },
 
     point() {
-      if (this.calculatorValue.indexOf(".") === -1) {
+      if (this.calculatorValue === "") {
+        this.calculatorValue += "0.";
+      } else if (!this.calculatorValue.includes(".") || this.calculatorValue === "0") {
+        this.calculatorValue += ".";
+      } else if (this.calculatorValue.indexOf(".") === -1) {
         this.append(".");
       }
     },
-    del() {
-      this.calculatorValue = this.calculatorValue.slice(0, -1);
-    },
+
     clear() {
       this.calculatorValue = "";
     },
@@ -107,7 +108,7 @@ export default {
           if (decimalIndex !== -1 && resultString.length - decimalIndex > 7) {
             this.calculatorValue = result.toFixed(7);
           } else {
-            this.calculatorValue = `${result}`;
+            this.calculatorValue = `${parseFloat(result.toFixed(2))}`;
           }
         } else {
           this.calculatorValue = `${result}`;
@@ -120,7 +121,12 @@ export default {
     },
 
     percent() {
-      let result = parseFloat(this.calculatorValue) / 100;
+      let result;
+      if (this.calculatorValue === "" || this.calculatorValue === "0") {
+        result = 0;
+      } else {
+        result = parseFloat(this.calculatorValue) / 100;
+      }
       if (Number.isFinite(result) && result % 1 !== 0) {
         let resultString = result.toString();
         let decimalIndex = resultString.indexOf(".");
@@ -137,32 +143,8 @@ export default {
 };
 </script>
 
-<style>
-:root {
-  --bg-color: rgb(66, 25, 25);
-  --bg-hover-color: rgb(50, 30, 0, 0.2);
-  --btn-bg-color: rgb(50, 30, 0, 0.4);
-  --secondary-bg-color: rgb(50, 30, 0, 0.6);
-  --secondary-bg-hover-color: rgb(50, 30, 0, 0.4);
-  --operator-bg-color: rgb(255, 159, 12);
-  --operator-bg-hover-color: rgba(255, 159, 12, 0.8);
-  --display-text-color: white;
-  --btn-text-color: white;
-}
-.theme {
-  --display-text-color: white;
-  --bg-color: rgb(71, 69, 69);
-  --bg-hover-color: rgba(0, 0, 0, 0.04);
-  --btn-bg-color: rgba(0, 0, 0, 0.1);
-  --btn-text-color: black;
-  --secondary-bg-color: rgba(0, 0, 0, 0.3);
-  --secondary-bg-hover-color: rgba(0, 0, 0, 0.1);
-  --operator-bg-color: #cc0000;
-  --operator-bg-hover-color: rgb(204, 0, 0, 0.8);
-}
-</style>
-
 <style scoped>
+@import url("@/assets/main.css");
 .overall-container {
   display: flex;
   max-width: 400px;

@@ -1,1 +1,23 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap")
+
+:root {
+  --bg-color: rgb(66, 25, 25);
+  --bg-hover-color: rgb(50, 30, 0, 0.2);
+  --btn-bg-color: rgb(50, 30, 0, 0.4);
+  --secondary-bg-color: rgb(50, 30, 0, 0.6);
+  --secondary-bg-hover-color: rgb(50, 30, 0, 0.4);
+  --operator-bg-color: rgb(255, 159, 12);
+  --operator-bg-hover-color: rgba(255, 159, 12, 0.8);
+  --display-text-color: white;
+  --btn-text-color: white;
+}
+.theme {
+  --display-text-color: white;
+  --bg-color: rgb(71, 69, 69);
+  --bg-hover-color: rgba(0, 0, 0, 0.04);
+  --btn-bg-color: rgba(0, 0, 0, 0.1);
+  --btn-text-color: black;
+  --secondary-bg-color: rgba(0, 0, 0, 0.3);
+  --secondary-bg-hover-color: rgba(0, 0, 0, 0.1);
+  --operator-bg-color: #cc0000;
+  --operator-bg-hover-color: rgb(204, 0, 0, 0.8);
+}
