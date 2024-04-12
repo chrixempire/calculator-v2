@@ -5,23 +5,31 @@
 </template>
 
 <script>
-import Calculator from './components/Calculator.vue'
+import Calculator from "./components/Calculator.vue";
 
 export default {
-  name: 'app',
+  name: "App",
   components: {
-    Calculator
-  }
-}
+    Calculator,
+  },
+};
 </script>
 
 <style>
+html, body {
+  height: 100%;
+  margin: 0;
+}
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  /* margin-top: 60px; */
+  font-family: Arial, sans-serif;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.call{
+  border: 1px solid red;
+  width: 100%;
 }
 </style>
