@@ -5,7 +5,7 @@
     </div>
     <div class="calculator" :class="{ theme: !btnColorChange }">
       <div class="display">
-        <p>{{ calculatorValue || "0" }}</p>
+        <p>{{ calculatorValue || "0 " }}</p>
       </div>
       <div @click="clear" class="btn secondary">AC</div>
       <div @click="sign" class="btn secondary">±</div>
@@ -59,13 +59,19 @@ export default {
 
     point() {
       if (this.calculatorValue === "") {
-        this.calculatorValue += "0.";
-      } else if (!this.calculatorValue.includes(".") || this.calculatorValue === "0") {
+        this.calculatorValue = `${0.}`;
+      } else if (
+        !this.calculatorValue.includes(".") ||
+        this.calculatorValue === "0" ||
+        this.calculatorValue === 0
+      ) {
         this.calculatorValue += ".";
       } else if (this.calculatorValue.indexOf(".") === -1) {
         this.append(".");
       }
     },
+
+
 
     clear() {
       this.calculatorValue = "";
@@ -102,18 +108,20 @@ export default {
           parseFloat(this.previousValue),
           parseFloat(this.calculatorValue)
         );
-        if (Number.isFinite(result) && result % 1 !== 0) {
-          let resultString = result.toString();
-          let decimalIndex = resultString.indexOf(".");
-          if (decimalIndex !== -1 && resultString.length - decimalIndex > 7) {
-            this.calculatorValue = result.toFixed(7);
+        if (Number.isFinite(result)) {
+          if (result % 1 !== 0) {
+            let roundedResult = parseFloat(result.toFixed(7));
+            if (roundedResult % 1 === 0) {
+              this.calculatorValue = `${parseInt(roundedResult, 10)}`;
+            } else {
+              this.calculatorValue = `${roundedResult}`;
+            }
           } else {
-            this.calculatorValue = `${parseFloat(result.toFixed(2))}`;
+            this.calculatorValue = `${result}`;
           }
         } else {
-          this.calculatorValue = `${result}`;
+          this.calculatorValue = "Error";
         }
-
         this.previousValue = null;
         this.operator = null;
       }
