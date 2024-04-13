@@ -5,7 +5,7 @@
     </div>
     <div class="calculator" :class="{ theme: !btnColorChange }">
       <div class="display">
-        <p>{{ calculatorValue || "0 " }}</p>
+        <p>{{ calculatorValue }}</p>
       </div>
       <div @click="clear" class="btn secondary">AC</div>
       <div @click="sign" class="btn secondary">±</div>
@@ -35,8 +35,7 @@ import Togglebtn from "./Togglebtn.vue";
 export default {
   data() {
     return {
-      previous: null,
-      calculatorValue: "",
+      calculatorValue: "0", // Set initial value to "0"
       operator: null,
       operatorClicked: false,
       btnColorChange: false,
@@ -50,35 +49,32 @@ export default {
       this.btnColorChange = !this.btnColorChange;
     },
     append(number) {
-      if (this.operationClicked) {
+      if (this.operatorClicked) {
         this.calculatorValue = "";
-        this.operationClicked = false;
+        this.operatorClicked = false;
       }
-      this.calculatorValue = `${this.calculatorValue}${number}`;
+      if (this.calculatorValue === "0" && number !== ".") {
+        this.calculatorValue = "";
+      }
+      this.calculatorValue += number;
     },
-
     point() {
-      if (this.calculatorValue === "") {
-        this.calculatorValue = `${0.}`;
-      } else if (
-        !this.calculatorValue.includes(".") ||
-        this.calculatorValue === "0" ||
-        this.calculatorValue === 0
-      ) {
+      if (this.operatorClicked || this.calculatorValue === "0") {
+        // If an operator was clicked or the display is "0", set display to "0."
+        this.calculatorValue = "0.";
+        this.operatorClicked = false;
+      } else if (!this.calculatorValue.includes(".")) {
         this.calculatorValue += ".";
-      } else if (this.calculatorValue.indexOf(".") === -1) {
-        this.append(".");
       }
     },
-
-
 
     clear() {
-      this.calculatorValue = "";
+      this.calculatorValue = "0";
+      this.operatorClicked = false;
     },
     setPrevious() {
       this.previousValue = this.calculatorValue;
-      this.operationClicked = true;
+      this.operatorClicked = true;
     },
     Add() {
       this.operator = (a, b) => a + b;
@@ -125,26 +121,27 @@ export default {
         this.previousValue = null;
         this.operator = null;
       }
-      this.operationClicked = true;
+      this.operatorClicked = true;
     },
 
     percent() {
       let result;
-      if (this.calculatorValue === "" || this.calculatorValue === "0") {
+      if (
+        this.calculatorValue === "" ||
+        this.calculatorValue === "0" ||
+        this.calculatorValue === "-"
+      ) {
         result = 0;
       } else {
         result = parseFloat(this.calculatorValue) / 100;
       }
-      if (Number.isFinite(result) && result % 1 !== 0) {
-        let resultString = result.toString();
-        let decimalIndex = resultString.indexOf(".");
-        if (decimalIndex !== -1 && resultString.length - decimalIndex > 7) {
-          this.calculatorValue = result.toFixed(7);
-        } else {
-          this.calculatorValue = `${result}`;
-        }
+      if (Number.isFinite(result)) {
+        let roundedResult = parseFloat(result.toFixed(7));
+        let resultString = roundedResult.toString();
+        resultString = resultString.replace(/\.?0*$/, "");
+        this.calculatorValue = resultString;
       } else {
-        this.calculatorValue = `${result}`;
+        this.calculatorValue = "Error";
       }
     },
   },
@@ -155,7 +152,7 @@ export default {
 @import url("@/assets/main.css");
 .overall-container {
   display: flex;
-  max-width: 400px;
+  max-width: 420px;
   width: 100%;
   justify-content: center;
   align-items: flex-start;
@@ -176,7 +173,7 @@ export default {
 }
 
 .display {
-  height: 125px;
+  height: 145px;
   grid-column: 1 / 5;
   background-color: var(--bg-color);
   color: var(--display-text-color);
@@ -184,7 +181,7 @@ export default {
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
-  padding-right: 15px;
+  padding-right: 10px;
 }
 .display p {
   font-size: 80px;
@@ -192,7 +189,7 @@ export default {
   font-weight: 100;
   font-style: normal;
   height: 100%;
-  margin-top: 30px;
+  margin-top: 50px;
 }
 
 .btn {
@@ -232,5 +229,12 @@ export default {
 }
 .operator {
   cursor: pointer;
+}
+
+@media screen and (max-width: 550px) {
+  .overall-container {
+    margin-bottom: 50px;
+    
+  }
 }
 </style>
