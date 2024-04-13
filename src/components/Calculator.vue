@@ -199,7 +199,7 @@ export default {
   margin: auto;
   padding: 15px;
   border-radius: 12px;
-  box-shadow: 0px 20px 24px rgba(71, 83, 103, 0.15);
+  box-shadow:  0px 25px 50px rgba(71, 83, 103, 0.25);
 }
 .calculator {
   margin: 0 auto;
