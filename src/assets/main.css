@@ -1,23 +1,23 @@
-
 :root {
   --bg-color: rgb(66, 25, 25);
   --bg-hover-color: rgb(50, 30, 0, 0.2);
   --btn-bg-color: rgb(50, 30, 0, 0.4);
-  --secondary-bg-color: rgb(50, 30, 0, 0.6);
-  --secondary-bg-hover-color: rgb(50, 30, 0, 0.4);
+  --specialbtn-bg-color: rgb(50, 30, 0, 0.6);
+  --specialbtn-bg-hover-color: rgb(50, 30, 0, 0.4);
   --operator-bg-color: rgb(255, 159, 12);
   --operator-bg-hover-color: rgba(255, 159, 12, 0.8);
   --display-text-color: white;
   --btn-text-color: white;
 }
+
 .theme {
   --display-text-color: white;
   --bg-color: rgb(71, 69, 69);
   --bg-hover-color: rgba(0, 0, 0, 0.04);
   --btn-bg-color: rgba(0, 0, 0, 0.1);
   --btn-text-color: black;
-  --secondary-bg-color: rgba(0, 0, 0, 0.3);
-  --secondary-bg-hover-color: rgba(0, 0, 0, 0.1);
+  --specialbtn-bg-color: rgba(0, 0, 0, 0.3);
+  --specialbtn-bg-hover-color: rgba(0, 0, 0, 0.1);
   --operator-bg-color: #cc0000;
   --operator-bg-hover-color: rgb(204, 0, 0, 0.8);
 }

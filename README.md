@@ -34,7 +34,6 @@ To run the Vue Calculator App locally, follow these steps:
 
 
 
-
 ######
 
 This template should help get you started developing with Vue 3 in Vite.
